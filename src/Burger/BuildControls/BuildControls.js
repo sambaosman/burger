@@ -19,6 +19,8 @@ const buildControls = (props) => {
           removed={() => {
             props.ingredientRemoved(element.type);
           }}
+          //{salad: true, meat: false, etc.}
+          disabled={props.disabled[element.type]}
         ></BuildControl>
       ))}
     </div>
