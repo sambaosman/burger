@@ -29,13 +29,23 @@ class BurgerBuilder extends Component {
     const newPrice = oldPrice + priceAddition; //adds the base price with the toppings price
     this.setState({ totalPrice: newPrice, ingredients: updatedIngredients }); //updates total price to the new price and updates ingredients inventory
   };
-  removeIngredientHandler = (type) => {};
+  removeIngredientHandler = (type) => {
+    const oldCount = this.state.ingredients[type];
+    const newCount = oldCount - 1;
+    const updatedIngredients = { ...this.state.ingredients };
+    updatedIngredients[type] = newCount;
+    const basePrice = this.state.totalPrice;
+    const priceSubtracted = INGREDIENT_PRICES[type];
+    const newPrice = basePrice - priceSubtracted;
+    this.setState({ ingredients: updatedIngredients, totalPrice: newPrice });
+  };
   render() {
     return (
       <React.Fragment>
         <Burger ingredients={this.state.ingredients} />
         <BuildControls
           ingredientAdded={this.addIngredientHandler}
+          ingredientRemoved={this.removeIngredientHandler}
         ></BuildControls>
       </React.Fragment>
     );
