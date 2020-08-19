@@ -8,6 +8,7 @@ const controls = [
   { label: "Cheese", type: "cheese" },
   { label: "Meat", type: "meat" },
 ];
+console.log("hi");
 const buildControls = (props) => {
   return (
     <div className={classes.BuildControls}>
