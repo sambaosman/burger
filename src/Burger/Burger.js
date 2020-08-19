@@ -3,6 +3,7 @@ import classes from "./Burger.css";
 import BurgerIngredient from "./BurgerIngredient/BurgerIngredient";
 
 const burger = (props) => {
+  console.log("Test");
   //   let newArray = [];
   //   for (let [first, number] of Object.entries(props.ingredients)) {
   //     console.log(first);
