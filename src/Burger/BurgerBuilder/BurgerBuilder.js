@@ -18,6 +18,14 @@ class BurgerBuilder extends Component {
       meat: 0,
     },
     totalPrice: 4, //base price for burger
+    purchasable: false,
+  };
+  updatePurchaseState = () => {
+    if (this.state.totalPrice > 4.0) {
+      this.setState({ purchasable: true });
+    } else {
+      this.setState({ purchasable: false });
+    }
   };
   addIngredientHandler = (type) => {
     const oldCount = this.state.ingredients[type]; //accesses the inventory of each type (salad, etc.)
@@ -27,7 +35,12 @@ class BurgerBuilder extends Component {
     const priceAddition = INGREDIENT_PRICES[type]; //accesses the prices of each type
     const oldPrice = this.state.totalPrice; //accesses the price of the burger itself
     const newPrice = oldPrice + priceAddition; //adds the base price with the toppings price
-    this.setState({ totalPrice: newPrice, ingredients: updatedIngredients }); //updates total price to the new price and updates ingredients inventory
+    this.setState(
+      { totalPrice: newPrice, ingredients: updatedIngredients },
+      () => {
+        this.updatePurchaseState(updatedIngredients);
+      }
+    ); //updates total price to the new price and updates ingredients inventory
   };
   removeIngredientHandler = (type) => {
     const oldCount = this.state.ingredients[type];
@@ -40,7 +53,12 @@ class BurgerBuilder extends Component {
     const basePrice = this.state.totalPrice;
     const priceSubtracted = INGREDIENT_PRICES[type];
     const newPrice = basePrice - priceSubtracted;
-    this.setState({ ingredients: updatedIngredients, totalPrice: newPrice });
+    this.setState(
+      { ingredients: updatedIngredients, totalPrice: newPrice },
+      () => {
+        this.updatePurchaseState(updatedIngredients);
+      }
+    );
   };
   render() {
     const disabledInfo = {
@@ -58,6 +76,7 @@ class BurgerBuilder extends Component {
           ingredientRemoved={this.removeIngredientHandler}
           disabled={disabledInfo}
           price={this.state.totalPrice}
+          purchasable={this.state.purchasable}
         ></BuildControls>
       </React.Fragment>
     );
