@@ -5,16 +5,16 @@ import BurgerIngredient from "./BurgerIngredient/BurgerIngredient";
 const burger = (props) => {
   let transformedIngredients = [];
   for (let [item, number] of Object.entries(props.ingredients)) {
-    console.log(item);
+    // console.log(item);
     let Array = [];
     for (let i = 0; i < number; i++) {
       Array.push(
         <BurgerIngredient key={item + i} type={item}></BurgerIngredient>
       ); //for each number, it makes an array of the inventory of the item
     }
-    console.log(Array); //["",""]
+    // console.log(Array); //["",""]
     transformedIngredients.push(Array);
-    console.log(transformedIngredients); //[["",""],[""],["",""]]
+    // console.log(transformedIngredients); //[["",""],[""],["",""]]
   }
 
   // //you want to transform a string into an array with as many elements as we have ingredients for a given ingredient
@@ -49,7 +49,7 @@ const burger = (props) => {
   if (transformedIngredients.length === 0) {
     transformedIngredients = <p>Please start adding ingredients</p>;
   }
-  console.log(transformedIngredients);
+  // console.log(transformedIngredients);
   return (
     <div className={classes.Burger}>
       <BurgerIngredient type="bread-top" />{" "}
